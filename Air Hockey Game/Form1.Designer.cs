@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.scoreLabel = new System.Windows.Forms.Label();
+            this.p2ScoreLabel = new System.Windows.Forms.Label();
+            this.p1ScoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -38,12 +41,50 @@
             this.gameTimer.Interval = 15;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
+            // scoreLabel
+            // 
+            this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
+            this.scoreLabel.Font = new System.Drawing.Font("Impact", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreLabel.ForeColor = System.Drawing.Color.White;
+            this.scoreLabel.Location = new System.Drawing.Point(350, 175);
+            this.scoreLabel.Name = "scoreLabel";
+            this.scoreLabel.Size = new System.Drawing.Size(400, 250);
+            this.scoreLabel.TabIndex = 0;
+            this.scoreLabel.Text = "Goal!!!";
+            this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.scoreLabel.Visible = false;
+            // 
+            // p2ScoreLabel
+            // 
+            this.p2ScoreLabel.Font = new System.Drawing.Font("Impact", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p2ScoreLabel.ForeColor = System.Drawing.Color.LimeGreen;
+            this.p2ScoreLabel.Location = new System.Drawing.Point(550, -10);
+            this.p2ScoreLabel.Name = "p2ScoreLabel";
+            this.p2ScoreLabel.Size = new System.Drawing.Size(500, 50);
+            this.p2ScoreLabel.TabIndex = 1;
+            this.p2ScoreLabel.Text = "P2 : 0";
+            this.p2ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // p1ScoreLabel
+            // 
+            this.p1ScoreLabel.Font = new System.Drawing.Font("Impact", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p1ScoreLabel.ForeColor = System.Drawing.Color.HotPink;
+            this.p1ScoreLabel.Location = new System.Drawing.Point(50, -10);
+            this.p1ScoreLabel.Name = "p1ScoreLabel";
+            this.p1ScoreLabel.Size = new System.Drawing.Size(500, 50);
+            this.p1ScoreLabel.TabIndex = 2;
+            this.p1ScoreLabel.Text = "P1 : 0";
+            this.p1ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(409, 561);
+            this.ClientSize = new System.Drawing.Size(1084, 611);
+            this.Controls.Add(this.p1ScoreLabel);
+            this.Controls.Add(this.p2ScoreLabel);
+            this.Controls.Add(this.scoreLabel);
             this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -57,6 +98,9 @@
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Label scoreLabel;
+        private System.Windows.Forms.Label p2ScoreLabel;
+        private System.Windows.Forms.Label p1ScoreLabel;
     }
 }
 
