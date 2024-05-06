@@ -38,10 +38,15 @@ namespace Air_Hockey_Game
         bool downPressed = false;
         bool rightPressed = false;
 
-        SolidBrush pinkBrush = new SolidBrush(Color.HotPink);
+        SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
-        SolidBrush greenBrush = new SolidBrush(Color.LimeGreen);
+        SolidBrush blueBrush = new SolidBrush(Color.Blue);
+        SolidBrush blackBrush = new SolidBrush(Color.Black);
+        Pen redPen = new Pen(Color.Red, 15);
+        Pen bluePen = new Pen(Color.Blue, 15);
         Pen whitePen = new Pen(Color.White, 2);
+        Pen blackPen = new Pen(Color.Black, 5);
+        Pen smallRedPen = new Pen(Color.Red, 5);
         public Form1()
         {
             InitializeComponent();
@@ -49,76 +54,105 @@ namespace Air_Hockey_Game
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //move ball up and down
-            ball.X = ball.X + ballXSpeed;
-            ball.Y = ball.Y + ballYSpeed;
+            MoveBall();
+
+            TopOrBottom();
+
+            IsItAGoal();
+
+            MovePlayers();
+
+            Interactions();
+
+            WinCheck();
+
+            Refresh();
+        }
+        
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawEllipse(smallRedPen, 5, 175, 75, 250);
+            e.Graphics.DrawEllipse(smallRedPen, 1000, 175, 75, 250);
+            e.Graphics.FillRectangle(whiteBrush, gameArea);
+            e.Graphics.DrawLine(bluePen, 325, 40, 325, 570);
+            e.Graphics.DrawLine(bluePen, 775, 40, 775, 570);
+            e.Graphics.DrawRectangle(blackPen, gameArea);
+            e.Graphics.DrawLine(redPen, 550, 40, 550, 570);
+            e.Graphics.DrawLine(smallRedPen, 40, 175, 40, 425);
+            e.Graphics.DrawLine(smallRedPen, 1040, 175, 1040, 425);
+            e.Graphics.DrawEllipse(redPen, 430, 180, 240, 240);
+            e.Graphics.FillEllipse(redBrush, player1);
+            e.Graphics.DrawEllipse(blackPen, player1);
+            e.Graphics.FillEllipse(blueBrush, player2);
+            e.Graphics.DrawEllipse(blackPen, player2);
+            e.Graphics.FillEllipse(blackBrush, ball);
+        }
+
+        private void Form1_KeyUp_1(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.W:
+                    wPressed = false;
+                    break;
+                case Keys.S:
+                    sPressed = false;
+                    break;
+                case Keys.A:
+                    aPressed = false;
+                    break;
+                case Keys.D:
+                    dPressed = false;
+                    break;
+                case Keys.Up: 
+                    upPressed = false;
+                    break;
+                case Keys.Down: 
+                    downPressed = false;
+                    break;
+                case Keys.Left: 
+                    leftPressed = false;
+                    break;
+                case Keys.Right: 
+                    rightPressed = false;
+                    break;
+            }
+        }
+
+        private void Form1_KeyDown_1(object sender, KeyEventArgs e)
+        {
             
-            //check to see if ball hit walls and to see if it went in the net
-            if (ball.X <= 40 && (ball.Y < 175 || ball.Y > 425))
+            switch (e.KeyCode)
             {
-                ballXSpeed = -ballXSpeed;
-                ball.X = ball.X + 5;
+                case Keys.W:
+                    wPressed = true;
+                    break;
+                case Keys.S:
+                    sPressed = true;
+                    break;
+                case Keys.A:
+                    aPressed = true;
+                    break;
+                case Keys.D:
+                    dPressed = true;
+                    break;
+                case Keys.Up: 
+                    upPressed = true;
+                    break;
+                case Keys.Down: 
+                    downPressed = true;
+                    break;
+                case Keys.Left: 
+                    leftPressed = true;
+                    break;
+                case Keys.Right: 
+                    rightPressed = true;
+                    break;
             }
-            else if (ball.X <= 40 && (ball.Y > 175 && ball.Y < 425))
-            {
-                player2Score++;
-                p2ScoreLabel.Text = $"P2 : {player2Score}";
-                scoreLabel.Visible = true;
-                scoreLabel.ForeColor = Color.LimeGreen;
+        }
 
-                Refresh();
-                Thread.Sleep(500);
-
-                scoreLabel.Visible = false;
-                ball.X = 530;
-                ball.Y = 280;
-                player1.X = 50;
-                player1.Y = 250;
-                player2.X = 940;
-                player2.Y = 250;
-                ballYSpeed = 0;
-                touches = 0;
-            }
-            else if (ball.X >= 1000 && (ball.Y < 175 || ball.Y > 425))
-            {
-                ballXSpeed = -ballXSpeed;
-                ball.X = ball.X -5;
-            }
-            else if (ball.X >= 1000 && ball.Y > 175 && ball.Y < 425)
-            {
-                player1Score++;
-                p1ScoreLabel.Text = $"P1 : {player1Score}";
-                scoreLabel.Visible = true;
-                scoreLabel.ForeColor = Color.HotPink;
-
-                Refresh();
-                Thread.Sleep(500);
-
-                scoreLabel.Visible= false;
-                ball.X = 530;
-                ball.Y = 280;
-                player1.X = 50;
-                player1.Y = 250;
-                player2.X = 940;
-                player2.Y = 250;
-                ballYSpeed = 0;
-                touches = 0;
-              
-            }
-            //check to see if ball hit top or bottom
-            if (ball.Y <= 40)
-            {
-                ballYSpeed = -ballYSpeed;
-                ball.Y = ball.Y + 5;
-            }
-            else if (ball.Y >= 530)
-            {
-                ballYSpeed = -ballYSpeed;
-                ball.Y = ball.Y - 5;
-            }
-            
-
-            //move player 1
+        public void MovePlayers()
+        {  //move player 1
             if (wPressed == true && player1.Y > 40)
             {
                 player1.Y = player1.Y - playerYSpeed;
@@ -153,7 +187,66 @@ namespace Air_Hockey_Game
             {
                 player2.X = player2.X + playerXSpeed;
             }
+        }
 
+        public void IsItAGoal()
+        {
+            //check to see if ball hit walls and to see if it went in the net
+            if (ball.X <= 40 && (ball.Y < 175 || ball.Y > 425))
+            {
+                ballXSpeed = -ballXSpeed;
+                ball.X = ball.X + 5;
+            }
+            else if (ball.X <= 40 && (ball.Y > 175 && ball.Y < 425))
+            {
+                player2Score++;
+                p2ScoreLabel.Text = $"P2 : {player2Score}";
+                scoreLabel.Visible = true;
+                scoreLabel.ForeColor = Color.Black;
+
+                Refresh();
+                Thread.Sleep(500);
+
+                scoreLabel.Visible = false;
+                ball.X = 530;
+                ball.Y = 280;
+                player1.X = 50;
+                player1.Y = 250;
+                player2.X = 940;
+                player2.Y = 250;
+                ballYSpeed = 0;
+                touches = 0;
+            }
+            else if (ball.X >= 1000 && (ball.Y < 175 || ball.Y > 425))
+            {
+                ballXSpeed = -ballXSpeed;
+                ball.X = ball.X - 5;
+            }
+            else if (ball.X >= 1000 && ball.Y > 175 && ball.Y < 425)
+            {
+                player1Score++;
+                p1ScoreLabel.Text = $"P1 : {player1Score}";
+                scoreLabel.Visible = true;
+                scoreLabel.ForeColor = Color.Black;
+
+                Refresh();
+                Thread.Sleep(500);
+
+                scoreLabel.Visible = false;
+                ball.X = 530;
+                ball.Y = 280;
+                player1.X = 50;
+                player1.Y = 250;
+                player2.X = 940;
+                player2.Y = 250;
+                ballYSpeed = 0;
+                touches = 0;
+
+            }
+        }
+
+        public void Interactions()
+        {
             //check if ball hit player 1
             if (player1.IntersectsWith(ball) && player1.Y > ball.Y)
             {
@@ -165,7 +258,7 @@ namespace Air_Hockey_Game
                 ballYSpeed = +10;
                 touches++;
             }
-            
+
             if (player1.IntersectsWith(ball) && player1.X > ball.X)
             {
                 ballXSpeed = -10;
@@ -186,7 +279,7 @@ namespace Air_Hockey_Game
             else if (player2.IntersectsWith(ball) && player2.Y + 45 < ball.Y)
             {
                 ballYSpeed = 10;
-                touches++; 
+                touches++;
             }
             if (player2.IntersectsWith(ball) && player2.X > ball.X)
             {
@@ -198,7 +291,10 @@ namespace Air_Hockey_Game
                 ballXSpeed = 10;
                 touches++;
             }
+        }
 
+        public void WinCheck()
+        {
             //check for a winner
             if (player1Score == 3)
             {
@@ -206,90 +302,35 @@ namespace Air_Hockey_Game
                 scoreLabel.Text = "P1 WINS";
                 gameTimer.Stop();
             }
-            else if(player2Score == 3)
+            else if (player2Score == 3)
             {
                 scoreLabel.Visible = true;
                 scoreLabel.Text = "P2 WINS";
                 gameTimer.Stop();
             }
-
-            Refresh();
-        }
-        
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawRectangle(whitePen, gameArea);
-            e.Graphics.DrawLine(whitePen, 550, 40, 550, 570);
-            e.Graphics.FillRectangle(greenBrush, goal1);
-            e.Graphics.FillRectangle(pinkBrush, goal2);
-            e.Graphics.DrawEllipse(whitePen, 430, 180, 240, 240);
-            e.Graphics.FillEllipse(pinkBrush, player1);
-            e.Graphics.FillEllipse(greenBrush, player2);
-            e.Graphics.FillEllipse(whiteBrush, ball);
-            
         }
 
-        private void Form1_KeyUp_1(object sender, KeyEventArgs e)
+        public void TopOrBottom()
         {
-            switch (e.KeyCode)
+            //check to see if ball hit top or bottom
+            if (ball.Y <= 40)
             {
-                case Keys.W:
-                    wPressed = false;
-                    break;
-                case Keys.S:
-                    sPressed = false;
-                    break;
-                case Keys.A:
-                    aPressed = false;
-                    break;
-                case Keys.D:
-                    dPressed = false;
-                    break;
-                case Keys.I: // change this to up
-                    upPressed = false;
-                    break;
-                case Keys.K: // change this to down
-                    downPressed = false;
-                    break;
-                case Keys.J: // change this to left
-                    leftPressed = false;
-                    break;
-                case Keys.L: //change this to right
-                    rightPressed = false;
-                    break;
+                ballYSpeed = -ballYSpeed;
+                ball.Y = ball.Y + 5;
+            }
+            else if (ball.Y >= 530)
+            {
+                ballYSpeed = -ballYSpeed;
+                ball.Y = ball.Y - 5;
             }
         }
 
-        private void Form1_KeyDown_1(object sender, KeyEventArgs e)
+        public void MoveBall()
         {
-            switch (e.KeyCode)
-            {
-                case Keys.W:
-                    wPressed = true;
-                    break;
-                case Keys.S:
-                    sPressed = true;
-                    break;
-                case Keys.A:
-                    aPressed = true;
-                    break;
-                case Keys.D:
-                    dPressed = true;
-                    break;
-                case Keys.I: //change this to up
-                    upPressed = true;
-                    break;
-                case Keys.K: // change this to down
-                    downPressed = true;
-                    break;
-                case Keys.J: // change this to left
-                    leftPressed = true;
-                    break;
-                case Keys.L: //change this to right
-                    rightPressed = true;
-                    break;
-
-            }
+            //move ball up and down
+            ball.X = ball.X + ballXSpeed;
+            ball.Y = ball.Y + ballYSpeed;
         }
     }
+
 }

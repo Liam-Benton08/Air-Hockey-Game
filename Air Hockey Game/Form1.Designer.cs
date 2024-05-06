@@ -29,11 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.p2ScoreLabel = new System.Windows.Forms.Label();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.scoreLabel = new System.Windows.Forms.Label();
-            this.p2ScoreLabel = new System.Windows.Forms.Label();
             this.p1ScoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // p2ScoreLabel
+            // 
+            this.p2ScoreLabel.BackColor = System.Drawing.Color.Transparent;
+            this.p2ScoreLabel.Font = new System.Drawing.Font("Impact", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p2ScoreLabel.ForeColor = System.Drawing.Color.Blue;
+            this.p2ScoreLabel.Location = new System.Drawing.Point(550, -5);
+            this.p2ScoreLabel.Name = "p2ScoreLabel";
+            this.p2ScoreLabel.Size = new System.Drawing.Size(500, 40);
+            this.p2ScoreLabel.TabIndex = 1;
+            this.p2ScoreLabel.Text = "P2 : 0";
+            this.p2ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gameTimer
             // 
@@ -54,24 +67,14 @@
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.scoreLabel.Visible = false;
             // 
-            // p2ScoreLabel
-            // 
-            this.p2ScoreLabel.Font = new System.Drawing.Font("Impact", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.p2ScoreLabel.ForeColor = System.Drawing.Color.LimeGreen;
-            this.p2ScoreLabel.Location = new System.Drawing.Point(550, -10);
-            this.p2ScoreLabel.Name = "p2ScoreLabel";
-            this.p2ScoreLabel.Size = new System.Drawing.Size(500, 50);
-            this.p2ScoreLabel.TabIndex = 1;
-            this.p2ScoreLabel.Text = "P2 : 0";
-            this.p2ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // p1ScoreLabel
             // 
-            this.p1ScoreLabel.Font = new System.Drawing.Font("Impact", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.p1ScoreLabel.ForeColor = System.Drawing.Color.HotPink;
-            this.p1ScoreLabel.Location = new System.Drawing.Point(50, -10);
+            this.p1ScoreLabel.BackColor = System.Drawing.Color.Transparent;
+            this.p1ScoreLabel.Font = new System.Drawing.Font("Impact", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p1ScoreLabel.ForeColor = System.Drawing.Color.Red;
+            this.p1ScoreLabel.Location = new System.Drawing.Point(50, -5);
             this.p1ScoreLabel.Name = "p1ScoreLabel";
-            this.p1ScoreLabel.Size = new System.Drawing.Size(500, 50);
+            this.p1ScoreLabel.Size = new System.Drawing.Size(500, 40);
             this.p1ScoreLabel.TabIndex = 2;
             this.p1ScoreLabel.Text = "P1 : 0";
             this.p1ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -80,14 +83,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1084, 611);
             this.Controls.Add(this.p1ScoreLabel);
             this.Controls.Add(this.p2ScoreLabel);
             this.Controls.Add(this.scoreLabel);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Air Hockey";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown_1);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp_1);
@@ -99,8 +103,8 @@
 
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label scoreLabel;
-        private System.Windows.Forms.Label p2ScoreLabel;
         private System.Windows.Forms.Label p1ScoreLabel;
+        private System.Windows.Forms.Label p2ScoreLabel;
     }
 }
 
