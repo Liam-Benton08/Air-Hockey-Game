@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Media;
 
 namespace Air_Hockey_Game
 {
@@ -27,7 +28,8 @@ namespace Air_Hockey_Game
         int playerYSpeed = 5;
         int ballXSpeed = 0;
         int ballYSpeed = 0;
-        int touches = 1;
+        int ballTimer = 0;
+        int touches = 0;
 
         bool wPressed = false;
         bool aPressed = false;
@@ -47,6 +49,9 @@ namespace Air_Hockey_Game
         Pen whitePen = new Pen(Color.White, 2);
         Pen blackPen = new Pen(Color.Black, 5);
         Pen smallRedPen = new Pen(Color.Red, 5);
+
+        SoundPlayer Applause = new SoundPlayer(Properties.Resources.Applause);
+        SoundPlayer Ping = new SoundPlayer(Properties.Resources.Ping);
         public Form1()
         {
             InitializeComponent();
@@ -65,6 +70,8 @@ namespace Air_Hockey_Game
             Interactions();
 
             WinCheck();
+
+            SlowBall();
 
             Refresh();
         }
@@ -203,6 +210,7 @@ namespace Air_Hockey_Game
                 p2ScoreLabel.Text = $"P2 : {player2Score}";
                 scoreLabel.Visible = true;
                 scoreLabel.ForeColor = Color.Black;
+                Applause.Play();
 
                 Refresh();
                 Thread.Sleep(500);
@@ -228,6 +236,7 @@ namespace Air_Hockey_Game
                 p1ScoreLabel.Text = $"P1 : {player1Score}";
                 scoreLabel.Visible = true;
                 scoreLabel.ForeColor = Color.Black;
+                Applause.Play();
 
                 Refresh();
                 Thread.Sleep(500);
@@ -241,7 +250,6 @@ namespace Air_Hockey_Game
                 player2.Y = 250;
                 ballYSpeed = 0;
                 touches = 0;
-
             }
         }
 
@@ -251,44 +259,50 @@ namespace Air_Hockey_Game
             if (player1.IntersectsWith(ball) && player1.Y > ball.Y)
             {
                 ballYSpeed = -10;
+                ballTimer = 180;
                 touches++;
             }
             else if (player1.IntersectsWith(ball) && player1.Y + 45 < ball.Y)
             {
                 ballYSpeed = +10;
+                ballTimer = 180;
                 touches++;
             }
-
             if (player1.IntersectsWith(ball) && player1.X > ball.X)
             {
                 ballXSpeed = -10;
+                ballTimer = 180;
                 touches++;
             }
             else if (player1.IntersectsWith(ball) && player1.X + 45 < ball.X)
             {
                 ballXSpeed = +10;
+                ballTimer = 180;
                 touches++;
             }
-
             //check if ball hit player 2
             if (player2.IntersectsWith(ball) && player2.Y > ball.Y)
             {
                 ballYSpeed = -10;
+                ballTimer = 180;
                 touches++;
             }
             else if (player2.IntersectsWith(ball) && player2.Y + 45 < ball.Y)
             {
                 ballYSpeed = 10;
+                ballTimer = 180;
                 touches++;
             }
             if (player2.IntersectsWith(ball) && player2.X > ball.X)
             {
                 ballXSpeed = -10;
+                ballTimer = 180;
                 touches++;
             }
             else if (player2.IntersectsWith(ball) && player2.X + 45 < ball.X)
             {
                 ballXSpeed = 10;
+                ballTimer = 180;
                 touches++;
             }
         }
@@ -330,6 +344,142 @@ namespace Air_Hockey_Game
             //move ball up and down
             ball.X = ball.X + ballXSpeed;
             ball.Y = ball.Y + ballYSpeed;
+        }
+
+        public void SlowBall()
+        {
+            if (ballTimer < 150)
+            {
+                if (ballXSpeed > 0)
+                {
+                    ballXSpeed = 7;
+                }
+                else if (ballXSpeed < 0)
+                {
+                    ballXSpeed = -7;
+                }
+                else
+                {
+                    ballXSpeed = 0;
+                }
+                if (ballYSpeed > 0)
+                {
+                    ballYSpeed = 7;
+                }
+                else if (ballYSpeed < 0)
+                {
+                    ballYSpeed = -7;
+                }
+                else
+                {
+                    ballYSpeed = 0;
+                } 
+            }
+            if (ballTimer < 120)
+            {
+                if (ballXSpeed > 0)
+                {
+                    ballXSpeed = 6;
+                }
+                else if (ballXSpeed < 0)
+                {
+                    ballXSpeed = -6;
+                }
+                else
+                {
+                    ballXSpeed = 0;
+                }
+                if (ballYSpeed > 0)
+                {
+                    ballYSpeed = 6;
+                }
+                else if (ballYSpeed < 0)
+                {
+                    ballYSpeed = -6;
+                }
+                else
+                {
+                    ballYSpeed = 0;
+                }
+            }
+            if (ballTimer < 90)
+            {
+                if (ballXSpeed > 0)
+                {
+                    ballXSpeed = 4;
+                }
+                else if (ballXSpeed < 0)
+                {
+                    ballXSpeed = -4;
+                }
+                else
+                {
+                    ballXSpeed = 0;
+                }
+                if (ballYSpeed > 0)
+                {
+                    ballYSpeed = 4;
+                }
+                else if (ballYSpeed < 0)
+                {
+                    ballYSpeed = -4;
+                }
+                else
+                {
+                    ballYSpeed = 0;
+                }
+            }
+            if (ballTimer < 60)
+            {
+                if (ballXSpeed > 0)
+                {
+                    ballXSpeed = 2;
+                }
+                else if (ballXSpeed < 0)
+                {
+                    ballXSpeed = -2;
+                }
+                else
+                {
+                    ballXSpeed = 0;
+                }
+                if (ballYSpeed > 0)
+                {
+                    ballYSpeed = 2;
+                }
+                else if (ballYSpeed < 0)
+                {
+                    ballYSpeed = -2;
+                }
+                else
+                {
+                    ballYSpeed = 0;
+                }
+            }
+            if (ballTimer <= 30)
+            {
+               if (ballXSpeed >= 0)
+                {
+                    ballXSpeed = 0;
+                }
+               else
+                {
+                    ballXSpeed = 0;
+                }
+                if (ballYSpeed >= 0)
+                {
+                    ballYSpeed = 0;
+                }
+                else
+                {
+                    ballYSpeed = 0;
+                }
+            }
+
+            if (touches >= 1)
+            {
+                ballTimer--; 
+            }
         }
     }
 

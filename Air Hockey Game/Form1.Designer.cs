@@ -41,7 +41,7 @@
             this.p2ScoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.p2ScoreLabel.Font = new System.Drawing.Font("Impact", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.p2ScoreLabel.ForeColor = System.Drawing.Color.Blue;
-            this.p2ScoreLabel.Location = new System.Drawing.Point(550, -5);
+            this.p2ScoreLabel.Location = new System.Drawing.Point(520, -5);
             this.p2ScoreLabel.Name = "p2ScoreLabel";
             this.p2ScoreLabel.Size = new System.Drawing.Size(500, 40);
             this.p2ScoreLabel.TabIndex = 1;
@@ -72,7 +72,7 @@
             this.p1ScoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.p1ScoreLabel.Font = new System.Drawing.Font("Impact", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.p1ScoreLabel.ForeColor = System.Drawing.Color.Red;
-            this.p1ScoreLabel.Location = new System.Drawing.Point(50, -5);
+            this.p1ScoreLabel.Location = new System.Drawing.Point(80, -5);
             this.p1ScoreLabel.Name = "p1ScoreLabel";
             this.p1ScoreLabel.Size = new System.Drawing.Size(500, 40);
             this.p1ScoreLabel.TabIndex = 2;
