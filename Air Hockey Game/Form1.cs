@@ -224,6 +224,7 @@ namespace Air_Hockey_Game
                 player2.Y = 250;
                 ballYSpeed = 0;
                 touches = 0;
+                ballTimer = 0;
             }
             else if (ball.X >= 1000 && (ball.Y < 175 || ball.Y > 425))
             {
@@ -250,6 +251,7 @@ namespace Air_Hockey_Game
                 player2.Y = 250;
                 ballYSpeed = 0;
                 touches = 0;
+                ballTimer = 0;
             }
         }
 
@@ -314,12 +316,16 @@ namespace Air_Hockey_Game
             {
                 scoreLabel.Visible = true;
                 scoreLabel.Text = "P1 WINS";
+                resetButton.Visible = true;
+                resetButton.Enabled = true;
                 gameTimer.Stop();
             }
             else if (player2Score == 3)
             {
                 scoreLabel.Visible = true;
                 scoreLabel.Text = "P2 WINS";
+                resetButton.Visible = true;
+                resetButton.Enabled = true;
                 gameTimer.Stop();
             }
         }
@@ -480,6 +486,22 @@ namespace Air_Hockey_Game
             {
                 ballTimer--; 
             }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            scoreLabel.Visible = false;
+            resetButton.Visible = false;
+            resetButton.Enabled = false;
+            p1ScoreLabel.Text = "P1 : 0";
+            p2ScoreLabel.Text = "P2 : 0";
+            player1Score = 0;
+            player2Score = 0;
+            ballXSpeed = 0;
+            ballYSpeed = 0;
+            ballTimer = 0;
+            touches = 0;
+            gameTimer.Start();
         }
     }
 

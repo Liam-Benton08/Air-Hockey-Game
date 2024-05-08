@@ -34,6 +34,7 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.scoreLabel = new System.Windows.Forms.Label();
             this.p1ScoreLabel = new System.Windows.Forms.Label();
+            this.resetButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // p2ScoreLabel
@@ -79,12 +80,27 @@
             this.p1ScoreLabel.Text = "P1 : 0";
             this.p1ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // resetButton
+            // 
+            this.resetButton.Enabled = false;
+            this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetButton.Location = new System.Drawing.Point(460, 500);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(180, 60);
+            this.resetButton.TabIndex = 3;
+            this.resetButton.Text = "Reset Game";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Visible = false;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1084, 611);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.p1ScoreLabel);
             this.Controls.Add(this.p2ScoreLabel);
             this.Controls.Add(this.scoreLabel);
@@ -105,6 +121,7 @@
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label p1ScoreLabel;
         private System.Windows.Forms.Label p2ScoreLabel;
+        private System.Windows.Forms.Button resetButton;
     }
 }
 
